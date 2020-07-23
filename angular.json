@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.less"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rxjs-simulator"
+    }
+  },
+  "defaultProject": "rxjs-simulator",
+  "cli": {
+    "analytics": "1561da34-18a8-4d93-a6dc-4d12889cfa46"
+  }
 }
