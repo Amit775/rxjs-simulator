@@ -10,7 +10,6 @@ import { NavBarCategory } from 'src/app/shared/models/nav-bar';
 export class SideNavComponent implements OnInit {
 
 	categories: NavBarCategory[];
-	constructor() { }
 
 	ngOnInit(): void {
 		this.categories = NAV_BAR_ITEMS;

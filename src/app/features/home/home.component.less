@@ -1,0 +1,31 @@
+.operator-page-container {
+	height: calc(100% - 32px);
+	width: calc(100% - 32px);
+	box-sizing: border-box;
+	overflow-x: hidden;
+	padding: 16px;
+	margin: 16px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 16px;
+
+	.title {
+		text-align: center;
+		font-size: 26px;
+		margin-bottom: 16px;
+	}
+
+	.content {
+		flex-grow: 1;
+	}
+
+	.actions {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		& > * {
+			margin: 0 8px;
+		}
+	}
+}

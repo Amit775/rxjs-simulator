@@ -12,6 +12,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/timeline/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/timeline/tsconfig.spec.json"
     }
 ]
 }

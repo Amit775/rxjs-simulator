@@ -18,7 +18,7 @@ export const NAV_BAR_ITEMS: NavBarCategory[] = [
 			},
 			{
 				display: 'timer',
-				route: 'from'
+				route: 'timer'
 			}
 		]
 	},
