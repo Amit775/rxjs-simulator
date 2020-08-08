@@ -1,0 +1,31 @@
+<div>
+	<div class="control">
+		<mat-form-field>
+			<input matInput placeholder="value" type="number" autocomplete="off" #value required>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput placeholder="time" type="number" autocomplete="off" #time required>
+		</mat-form-field>
+		<mat-form-field>
+			<mat-select #index [required]='true'>
+				<mat-option *ngFor="let _ of inputs; let index = index;" [value]="index"> {{ index }} </mat-option>
+			</mat-select>
+		</mat-form-field>
+		<button mat-raised-button (click)="addMarbleTo(index.value, marble(value.valueAsNumber, time.valueAsNumber))"
+			type="submit">Add</button>
+		<button mat-raised-button (click)="addInput()">Add Input</button>
+	</div>
+	<div class="display">
+		<div *ngFor="let input of inputs; let index = index;">
+			{{ index }} : {{ input | displayMarbles }}
+		</div>
+	</div>
+	<div class="result">
+		<div>
+			* : {{ result$ | async | displayMarbles }}
+		</div>
+		<div>
+			<button mat-raised-button (click)="play()">Play</button>
+		</div>
+	</div>
+</div>

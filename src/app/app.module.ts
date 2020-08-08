@@ -1,4 +1,4 @@
-import { displayMarblesPipe } from './features/playground/display-marbles.pipe';
+import { PlaygroundModule } from './features/playground/playground.module';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +14,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { FilterCategoryPipe } from './layout/side-nav/filter-category.pipe';
 import { SideNavComponent } from './layout/side-nav/side-nav.component';
 import { TopBarComponent } from './layout/top-bar/top-bar.component';
-import { PlaygroundComponent } from './features/playground/playground.component';
 
 @NgModule({
 	declarations: [
@@ -24,16 +23,16 @@ import { PlaygroundComponent } from './features/playground/playground.component'
 		FooterComponent,
 		FilterCategoryPipe,
 		HomeComponent,
-		OperatorPageComponent,
-		PlaygroundComponent,
-		displayMarblesPipe
+		OperatorPageComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		FormsModule,
-		MaterialModule
+		MaterialModule,
+		PlaygroundModule
+
 	],
 	bootstrap: [AppComponent]
 })
