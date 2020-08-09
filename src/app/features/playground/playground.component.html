@@ -4,16 +4,16 @@
 			<input matInput placeholder="value" type="number" autocomplete="off" #value required>
 		</mat-form-field>
 		<mat-form-field>
-			<input matInput placeholder="time" type="number" autocomplete="off" #time required>
+			<input matInput placeholder="time" type="number" autocomplete="off" #time required min="0" max="10">
 		</mat-form-field>
 		<mat-form-field>
 			<mat-select #index [required]='true'>
 				<mat-option *ngFor="let _ of inputs; let index = index;" [value]="index"> {{ index }} </mat-option>
 			</mat-select>
 		</mat-form-field>
-		<button mat-raised-button (click)="addMarbleTo(index.value, marble(value.valueAsNumber, time.valueAsNumber))"
+		<button mat-raised-button (click)="addMarbleTo(index.value, time.valueAsNumber, value.valueAsNumber)"
 			type="submit">Add</button>
-		<button mat-raised-button (click)="addInput()">Add Input</button>
+		<button mat-raised-button (click)="addInput()" *ngIf="inputs.length === 0 || multipleInputs">Add Input</button>
 	</div>
 	<div class="display">
 		<div *ngFor="let input of inputs; let index = index;">
