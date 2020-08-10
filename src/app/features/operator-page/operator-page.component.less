@@ -3,7 +3,7 @@
 	width: calc(100% - 32px);
 	box-sizing: border-box;
 	overflow-x: hidden;
-	padding: 16px;
+	padding: 16px 16px 0 16px;
 	margin: 16px;
 	display: flex;
 	flex-direction: column;
@@ -27,5 +27,17 @@
 		& > * {
 			margin: 0 8px;
 		}
+	}
+}
+
+.mat-tab-group {
+	height: 100%;
+	
+	&.mat-tab-group.mat-tab-group-inverted-header {
+		justify-content: space-between;
+	}
+	
+	::ng-deep.mat-tab-body-wrapper { 
+		height: 100%;
 	}
 }

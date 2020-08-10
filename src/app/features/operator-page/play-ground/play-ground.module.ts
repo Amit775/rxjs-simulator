@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from '../../../shared/material.module';
 import { DisplayMarblesPipe } from './display-marbles.pipe';
-import { PlaygroundComponent } from './playground.component';
+import { PlayGroundComponent } from './play-ground.component';
 
 
 @NgModule({
 	declarations: [
-		PlaygroundComponent,
+		PlayGroundComponent,
 		DisplayMarblesPipe
 	],
 	imports: [
@@ -16,7 +16,7 @@ import { PlaygroundComponent } from './playground.component';
 		MaterialModule
 	],
 	exports: [
-		PlaygroundComponent
+		PlayGroundComponent
 	]
 })
-export class PlaygroundModule { }
+export class PlayGroundModule { }

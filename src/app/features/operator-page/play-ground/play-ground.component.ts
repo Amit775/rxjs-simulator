@@ -2,15 +2,15 @@ import { Component, Input } from '@angular/core';
 import { scan, filter } from 'rxjs/operators';
 import { VirtualTimeScheduler, Subject, Observable, merge } from 'rxjs';
 
-import { SubSink } from './../utils/subsink';
+import { SubSink } from '../../utils/subsink';
 import { NextMarble, Marble, MarbleType, isNextMarble, CompleteMarble } from './marble';
 
 @Component({
-	selector: 'app-playground',
-	templateUrl: './playground.component.html',
-	styleUrls: ['./playground.component.less']
+	selector: 'app-operator-playground',
+	templateUrl: './play-ground.component.html',
+	styleUrls: ['./play-ground.component.less']
 })
-export class PlaygroundComponent<T extends number, E> {
+export class PlayGroundComponent<T extends number, E> {
 	@Input() multipleInputs: boolean = true;
 
 	subs = new SubSink();
