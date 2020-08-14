@@ -40,10 +40,6 @@ export class DisplayMarblesPipe<T, E> implements PipeTransform {
 				return '#';
 			case MarbleType.COMPLETE:
 				return '|';
-			case MarbleType.SUBSCRIBE:
-				return '^';
-			case MarbleType.UNSUBSCRIBE:
-				return '!';
 		}
 	}
 }

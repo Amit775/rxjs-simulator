@@ -4,7 +4,7 @@
 			<input matInput placeholder="value" type="number" autocomplete="off" #value required>
 		</mat-form-field>
 		<mat-form-field>
-			<input matInput placeholder="time" type="number" autocomplete="off" #time required min="0" max="10">
+			<input matInput placeholder="time" type="number" autocomplete="off" #time required min="0">
 		</mat-form-field>
 		<mat-form-field>
 			<mat-select #index [required]='true'>
@@ -13,7 +13,17 @@
 		</mat-form-field>
 		<button mat-raised-button (click)="addMarbleTo(index.value, time.valueAsNumber, value.valueAsNumber)"
 			type="submit">Add</button>
-		<button mat-raised-button (click)="addInput()" *ngIf="inputs.length === 0 || multipleInputs">Add Input</button>
+	</div>
+	<div class="new-input">
+		<mat-form-field>
+			<input matInput type="number" min="0" placeholder="error" autocomplete="off" #error required>
+		</mat-form-field>
+		<mat-form-field>
+			<input matInput type="number" min="0" placeholder="complete" autocomplete="off" #complete required
+				value="10">
+		</mat-form-field>
+		<button mat-raised-button (click)="addInput(complete.valueAsNumber, error.valueAsNumber)"
+			*ngIf="inputs.length === 0 || multipleInputs">Add Input</button>
 	</div>
 	<div class="display">
 		<div *ngFor="let input of inputs; let index = index;">

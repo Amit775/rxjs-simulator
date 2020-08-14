@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { scan, filter } from 'rxjs/operators';
-import { VirtualTimeScheduler, Subject, Observable, merge } from 'rxjs';
-
+import { scan, tap } from 'rxjs/operators';
+import { VirtualTimeScheduler, Subject, Observable, Subscriber, OperatorFunction, merge, SubscriptionLike, concat } from 'rxjs';
 import { SubSink } from '../../utils/subsink';
-import { NextMarble, Marble, MarbleType, isNextMarble, CompleteMarble } from './marble';
+import { NextMarble, Marble, MarbleType, CompleteMarble, ErrorMarble } from './marble';
 
 @Component({
 	selector: 'app-operator-playground',
@@ -25,33 +24,36 @@ export class PlayGroundComponent<T extends number, E> {
 		this.inputs[index] = [...this.inputs[index], marble];
 	}
 
-	addInput(): void {
-		const complete = new CompleteMarble(10);
-		this.inputs = [...this.inputs, [complete]];
+	addInput(completeTime: number, errorTime: number): void {
+		const error = errorTime ? new ErrorMarble<E>(errorTime, <E><unknown>'error') : undefined;
+		const complete = new CompleteMarble(completeTime);
+		this.inputs = [...this.inputs, [complete, ...error ? [error] : []]];
 	}
 
 	play(): void {
-		const subjects = this.inputs.map(input => {
-			const subject = new Subject<Marble<T, E>>();
+		const subjects = this.inputs.map((input, index) => {
+			const subject = new Subject<T>();
 			input.forEach(marble =>
 				this.subs.sink =
-				this.scheduler.schedule((marble: Marble) => subject.next(marble), marble.time, marble));
+				this.scheduler.schedule((marble: Marble) => this.work(subject, marble), marble.time, marble));
 			return subject;
 		});
-		this.subs.sink = this.result.subscribe(x => console.log(x));
-		this.subs.sink = subjects[0].pipe(filter(marble => !isNextMarble(marble) || (isNextMarble(marble) && marble.value < 3)))
+		this.subs.sink = concat(...subjects)
 			.pipe(
+				toMarble(this.scheduler),
 				scan((values: Marble<T, E>[], value: Marble<T, E>) => values = [...values, value], []))
-			.subscribe(x => this.result.next(x));
+			.subscribe(marble => this.result.next(marble));
 
 		this.scheduler.flush();
+		this.scheduler.index
+		this.scheduler.frame = 0;
 		this.subs.unsubscribe();
 	}
 
-	private work(subject: Subject<Marble<T, E>>, marble: Marble<T, E>): void {
+	private work(subject: Subject<T>, marble: Marble<T, E>): void {
 		switch (marble.type) {
 			case MarbleType.NEXT:
-				subject.next(marble);
+				subject.next(marble.value);
 				break;
 			case MarbleType.ERROR:
 				subject.error(marble.error);
@@ -59,12 +61,20 @@ export class PlayGroundComponent<T extends number, E> {
 			case MarbleType.COMPLETE:
 				subject.complete();
 				break;
-			case MarbleType.SUBSCRIBE:
-				subject.subscribe();
-				break;
-			case MarbleType.UNSUBSCRIBE:
-				subject.unsubscribe();
-				break;
 		}
 	}
+}
+
+
+function toMarble<T, E>(scheduler: VirtualTimeScheduler): OperatorFunction<T, Marble<T, E>> {
+	return (source: Observable<T>): Observable<Marble<T, E>> => {
+		let index: number = 0;
+		return new Observable((subscriber: Subscriber<Marble<T, E>>): SubscriptionLike => {
+			return source.subscribe({
+				next: (value: T) => subscriber.next(new NextMarble(scheduler.now(), value, index++)),
+				error: (error: E) => subscriber.next(new ErrorMarble(scheduler.now(), error)),
+				complete: () => subscriber.next(new CompleteMarble(scheduler.now()))
+			});
+		});
+	};
 }

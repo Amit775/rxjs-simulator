@@ -1,23 +1,20 @@
+import { Unsubscribable } from 'rxjs';
+
 const isFunction = (fn: any) => typeof fn === 'function';
-
-export interface SubscriptionLike {
-	unsubscribe(): void;
-}
-
 /**
  * Subscription sink that holds Observable subscriptions
  * until you call unsubscribe on it in ngOnDestroy.
  */
-export class SubSink implements SubscriptionLike {
+export class SubSink implements Unsubscribable {
 
-	protected _subs: SubscriptionLike[] = [];
+	protected _subs: Unsubscribable[] = [];
 
 	/**
 	 * Add subscriptions to the tracked subscriptions
 	 * @example
 	 *  this.subs.add(observable$.subscribe(...));
 	 */
-	add(...subscriptions: SubscriptionLike[]) {
+	add(...subscriptions: Unsubscribable[]) {
 		this._subs = this._subs.concat(subscriptions);
 	}
 
@@ -26,7 +23,7 @@ export class SubSink implements SubscriptionLike {
 	 * @example
 	 *  this.subs.sink = observable$.subscribe(...);
 	 */
-	set sink(subscription: SubscriptionLike) {
+	set sink(subscription: Unsubscribable) {
 		this._subs.push(subscription);
 	}
 

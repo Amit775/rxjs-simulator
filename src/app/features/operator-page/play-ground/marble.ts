@@ -18,20 +18,18 @@ export class CompleteMarble implements BaseMarble {
 	constructor(public time: number) { }
 }
 
-export class SubscribeMarble implements BaseMarble {
-	public type: MarbleType.SUBSCRIBE = MarbleType.SUBSCRIBE;
-	constructor(public time: number) { }
-}
+export enum MarbleType { NEXT, ERROR, COMPLETE }
 
-export class UnsubscribeMarble implements BaseMarble {
-	public type: MarbleType.UNSUBSCRIBE = MarbleType.UNSUBSCRIBE;
-	constructor(public time: number) { }
-}
-
-export enum MarbleType { NEXT, ERROR, COMPLETE, SUBSCRIBE, UNSUBSCRIBE }
-
-export type Marble<T = any, E = any> = NextMarble<T> | ErrorMarble<E> | CompleteMarble | SubscribeMarble | UnsubscribeMarble;
+export type Marble<T = any, E = any> = NextMarble<T> | ErrorMarble<E> | CompleteMarble;
 
 export function isNextMarble<T>(marble: Marble): marble is NextMarble<T> {
 	return marble.type === MarbleType.NEXT;
+}
+
+export function isErrorMarble<E>(marble: Marble): marble is ErrorMarble<E> {
+	return marble.type === MarbleType.ERROR;
+}
+
+export function isCompleteMarble(marble: Marble): marble is CompleteMarble {
+	return marble.type === MarbleType.COMPLETE;
 }
