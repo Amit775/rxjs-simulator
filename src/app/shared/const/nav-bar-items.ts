@@ -69,7 +69,6 @@ export const NAV_BAR_ITEMS: NavBarCategory[] = [
 			{ display: 'debounce', route: 'debounce' },
 			{ display: 'debounceTime', route: 'debounceTime' },
 			{ display: 'distinct', route: 'distinct' },
-			{ display: 'distinctKey', route: 'distinctKey' },
 			{ display: 'distinctUntilChanged', route: 'distinctUntilChanged' },
 			{ display: 'distinctUntilKeyChanged', route: 'distinctUntilKeyChanged' },
 			{ display: 'elementAt', route: 'elementAt' },

@@ -6,7 +6,7 @@
 			<app-operator-playground></app-operator-playground>
 		</mat-tab>
 		<mat-tab label="Documentation">
-			<app-operator-documentation></app-operator-documentation>
+			<app-operator-documentation [operator]="operator$ | async"></app-operator-documentation>
 		</mat-tab>
 		<mat-tab label="Comparison">
 			<app-operator-comparison></app-operator-comparison>

@@ -1,12 +1,12 @@
 <div class="play-ground-container">
 	<div class="control">
-		<mat-form-field>
+		<mat-form-field hideRequiredMarker>
 			<input matInput placeholder="value" type="number" autocomplete="off" #value required>
 		</mat-form-field>
-		<mat-form-field>
+		<mat-form-field hideRequiredMarker>
 			<input matInput placeholder="time" type="number" autocomplete="off" #time required min="0">
 		</mat-form-field>
-		<mat-form-field>
+		<mat-form-field hideRequiredMarker>
 			<mat-select #index [required]='true'>
 				<mat-option *ngFor="let _ of inputs; let index = index;" [value]="index"> {{ index }} </mat-option>
 			</mat-select>
@@ -15,10 +15,10 @@
 			type="submit">Add</button>
 	</div>
 	<div class="new-input">
-		<mat-form-field>
+		<mat-form-field hideRequiredMarker>
 			<input matInput type="number" min="0" placeholder="error" autocomplete="off" #error required>
 		</mat-form-field>
-		<mat-form-field>
+		<mat-form-field hideRequiredMarker>
 			<input matInput type="number" min="0" placeholder="complete" autocomplete="off" #complete required
 				value="10">
 		</mat-form-field>
