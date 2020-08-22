@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { MaterialModule } from './shared/material.module';
 import { OperatorPageModule } from './features/operator-page/operator-page.module';
 import { HomeComponent } from './features/home/home.component';
@@ -21,7 +20,7 @@ import { TopBarComponent } from './layout/top-bar/top-bar.component';
 		SideNavComponent,
 		FooterComponent,
 		FilterCategoryPipe,
-		HomeComponent,
+		HomeComponent
 	],
 	imports: [
 		BrowserModule,

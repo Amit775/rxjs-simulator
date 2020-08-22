@@ -1,11 +1,12 @@
-import { PagesService } from './../../core/pages.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { Page } from 'src/app/shared/pages/page';
-
+import { map } from 'rxjs/operators';
 import { startCase, camelCase } from 'lodash';
+
+import { Page } from 'src/app/shared/pages/page';
+import { PagesService } from 'src/app/core/pages.service';
+
 
 @Component({
 	selector: 'app-operator-page',

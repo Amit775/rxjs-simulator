@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PlayGroundModule } from './play-ground/play-ground.module';
-import { MaterialModule } from './../../shared/material.module';
+import { MaterialModule } from 'src/app/shared/material.module';
 import { OperatorPageComponent } from './operator-page.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { ComparisonComponent } from './comparison/comparison.component';

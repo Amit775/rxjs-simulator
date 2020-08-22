@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 
-import { Page } from '../shared/pages/page';
-
 import { kebabCase, startCase, camelCase } from 'lodash';
+
+import { Page } from '../shared/pages/page';
 
 import { DefaultIfEmptyPage, EveryPage, FindPage, FindIndexPage, IsEmptyPage } from '../shared/pages/conditional-and-boolean-operators';
 import { AjaxPage, BindCallbackPage, BindNodeCallbackPage, DeferPage, EmptyPage, FromPage, FromEventPage, FromEventPatternPage, GeneratePage, IifPage, IntervalPage, OfPage, RangePage, ThrowErrorPage, TimerPage } from './../shared/pages/creation-operators';
