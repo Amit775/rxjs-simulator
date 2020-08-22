@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { scan, tap } from 'rxjs/operators';
-import { VirtualTimeScheduler, Subject, Observable, Subscriber, OperatorFunction, merge, SubscriptionLike, concat } from 'rxjs';
-import { SubSink } from '../../utils/subsink';
+
+import { scan } from 'rxjs/operators';
+import { VirtualTimeScheduler, Subject, Observable, Subscriber, OperatorFunction, SubscriptionLike, concat } from 'rxjs';
+
+import { SubSink } from 'src/app/shared/utils/subsink';
 import { NextMarble, Marble, MarbleType, CompleteMarble, ErrorMarble } from './marble';
 
 @Component({

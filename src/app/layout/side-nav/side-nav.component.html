@@ -8,10 +8,10 @@
 				</button>
 			</mat-form-field>
 			<ng-container *ngIf="categories | filterCategory : search.value as filteredCategories; else noItems">
-				<ng-container *ngFor="let cateogry of filteredCategories">
-					<span id="side-nav-category-title" mat-subheader> {{ cateogry.display }} </span>
-					<mat-list-item *ngFor="let item of cateogry.items" [routerLink]="['operator', item.route]">
-						{{ item.display }} </mat-list-item>
+				<ng-container *ngFor="let cateogry of filteredCategories | keyvalue">
+					<span id="side-nav-category-title" mat-subheader> {{ cateogry.key }} </span>
+					<mat-list-item *ngFor="let item of cateogry.value" [routerLink]="['operator', item.category, item.name]">
+						{{ item.name }} </mat-list-item>
 				</ng-container>
 			</ng-container>
 			<ng-template #noItems>

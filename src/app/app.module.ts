@@ -21,7 +21,7 @@ import { TopBarComponent } from './layout/top-bar/top-bar.component';
 		SideNavComponent,
 		FooterComponent,
 		FilterCategoryPipe,
-		HomeComponent
+		HomeComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NAV_BAR_ITEMS } from 'src/app/shared/const/nav-bar-items';
-import { NavBarCategory } from 'src/app/shared/models/nav-bar';
+import { PagesService } from 'src/app/core/pages.service';
+import { Page } from 'src/app/shared/pages/page';
 
 @Component({
 	selector: 'app-side-nav',
@@ -9,9 +9,11 @@ import { NavBarCategory } from 'src/app/shared/models/nav-bar';
 })
 export class SideNavComponent implements OnInit {
 
-	categories: NavBarCategory[];
+	categories: Map<string, Page[]>;
+
+	constructor(private pagesService: PagesService) { }
 
 	ngOnInit(): void {
-		this.categories = NAV_BAR_ITEMS;
+		this.categories = this.pagesService.pages;
 	}
 }

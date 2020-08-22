@@ -4,7 +4,7 @@ import { OperatorPageComponent } from './features/operator-page/operator-page.co
 import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
-	{ path: 'operator/:id', component: OperatorPageComponent },
+	{ path: 'operator/:category/:name', component: OperatorPageComponent },
 	{ path: '', component: HomeComponent },
 	{ path: '**', redirectTo: '' }
 ];

@@ -1,7 +1,11 @@
+import { PagesService } from './../../core/pages.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Page } from 'src/app/shared/pages/page';
+
+import { startCase, camelCase } from 'lodash';
 
 @Component({
 	selector: 'app-operator-page',
@@ -10,11 +14,17 @@ import { map } from 'rxjs/operators';
 })
 export class OperatorPageComponent implements OnInit {
 
+	page$: Observable<Page>;
 	operator$: Observable<string>;
 
-	constructor(private router: ActivatedRoute) { }
+	constructor(private router: ActivatedRoute, private pagesService: PagesService) { }
 
 	ngOnInit(): void {
-		this.operator$ = this.router.params.pipe(map(params => params.id));
+		this.page$ = this.router.params.pipe(
+			map(param => this.pagesService.pages.get(
+				startCase(camelCase(param.category))
+			).find(page => page.name === param.name))
+		);
+		this.operator$ = this.page$.pipe(map(page => page.name));
 	}
 }
