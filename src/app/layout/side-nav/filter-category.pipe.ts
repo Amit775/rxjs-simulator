@@ -12,7 +12,7 @@ export class FilterCategoryPipe implements PipeTransform {
 
 		const result = new Map<string, Page[]>();
 		categories.forEach((pages: Page[], category: string) => {
-			const filteredPages = pages.filter(page => page.name.includes(query));
+			const filteredPages = pages.filter(page => page.name.toLowerCase().includes(query.toLowerCase()));
 			if (filteredPages.length > 0) result.set(category, filteredPages);
 		})
 		return result.size > 0 ? result : null;
