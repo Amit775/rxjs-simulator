@@ -1,15 +1,15 @@
-<div class="operator-page-container">
-	<div class="title"> {{ operator$ | async }} </div>
+<div class="operator-page-container" *ngIf="page$ | async as page">
+	<div class="title"> {{ page.name }} </div>
 	<mat-divider></mat-divider>
 	<mat-tab-group headerPosition="below" mat-align-tabs="center">
 		<mat-tab label="PlayGround">
-			<app-operator-playground></app-operator-playground>
+			<app-operator-playground [page]="page"></app-operator-playground>
 		</mat-tab>
 		<mat-tab label="Documentation">
-			<app-operator-documentation [operator]="operator$ | async"></app-operator-documentation>
+			<app-operator-documentation [page]="page"></app-operator-documentation>
 		</mat-tab>
 		<mat-tab label="Comparison">
-			<app-operator-comparison></app-operator-comparison>
+			<app-operator-comparison [page]="page"></app-operator-comparison>
 		</mat-tab>
 	</mat-tab-group>
 </div>

@@ -1,18 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { Predictable, isPredictable } from './../../../shared/pages/page';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { scan } from 'rxjs/operators';
-import { VirtualTimeScheduler, Subject, Observable, Subscriber, OperatorFunction, SubscriptionLike, concat } from 'rxjs';
+import { VirtualTimeScheduler, Subject, Observable, Subscriber, OperatorFunction, SubscriptionLike, concat, merge } from 'rxjs';
 
 import { SubSink } from 'src/app/shared/utils/subsink';
 import { NextMarble, Marble, MarbleType, CompleteMarble, ErrorMarble } from './marble';
+import { Page, CreatorPage, OperatorPage } from 'src/app/shared/pages/page';
 
 @Component({
 	selector: 'app-operator-playground',
 	templateUrl: './play-ground.component.html',
 	styleUrls: ['./play-ground.component.less']
 })
-export class PlayGroundComponent<T extends number, E> {
-	@Input() multipleInputs: boolean = true;
+export class PlayGroundComponent<T, E> implements OnChanges {
+	@Input() page: Page;
 
 	subs = new SubSink();
 	inputs: Marble<T, E>[][] = []
@@ -20,6 +22,17 @@ export class PlayGroundComponent<T extends number, E> {
 	result = new Subject<Marble<T, E>[]>()
 	result$: Observable<Marble<T, E>[]> = this.result.asObservable();
 
+
+	ngOnChanges(): void {
+		if (this.page instanceof OperatorPage) {
+			const { operator } = this.page;
+			console.log(operator);
+		}
+
+		if (isPredictable(this.page)) {
+			console.log('predictable');
+		}
+	}
 	addMarbleTo(index: number, time: number, value: T): void {
 		if (index < 0 || index >= this.inputs.length) return;
 		const marble = new NextMarble<T>(time, value, this.inputs[index].length);
@@ -40,7 +53,9 @@ export class PlayGroundComponent<T extends number, E> {
 				this.scheduler.schedule((marble: Marble) => this.work(subject, marble), marble.time, marble));
 			return subject;
 		});
-		this.subs.sink = concat(...subjects)
+
+
+		this.subs.sink = this.act(subjects)
 			.pipe(
 				toMarble(this.scheduler),
 				scan((values: Marble<T, E>[], value: Marble<T, E>) => values = [...values, value], []))
@@ -50,6 +65,10 @@ export class PlayGroundComponent<T extends number, E> {
 		this.scheduler.index
 		this.scheduler.frame = 0;
 		this.subs.unsubscribe();
+	}
+
+	public get isMultipleInput(): boolean {
+		return true;
 	}
 
 	private work(subject: Subject<T>, marble: Marble<T, E>): void {
@@ -64,6 +83,19 @@ export class PlayGroundComponent<T extends number, E> {
 				subject.complete();
 				break;
 		}
+	}
+
+	private act(subjects: Subject<T>[]): Observable<T> {
+		if (this.page instanceof CreatorPage) {
+			return this.page.creator(...subjects);
+		}
+
+		if (this.page instanceof OperatorPage) {
+			const [source, ...rest] = subjects;
+			return source.pipe(this.page.operator(rest));
+		}
+
+		return merge(...subjects);
 	}
 }
 

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Page } from 'src/app/shared/pages/page';
 
 @Component({
 	selector: 'app-operator-documentation',
@@ -8,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class DocumentationComponent {
 
 	imageSrc: string;
-	@Input() set operator(value: string) {
-		this.imageSrc = `https://rxjs-dev.firebaseapp.com/assets/images/marble-diagrams/${value}.png`;
+	@Input() set page(value: Page) {
+		this.imageSrc = `https://rxjs-dev.firebaseapp.com/assets/images/marble-diagrams/${value.name}.png`;
 	}
 }

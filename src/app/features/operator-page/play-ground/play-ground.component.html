@@ -23,7 +23,7 @@
 				value="10">
 		</mat-form-field>
 		<button mat-raised-button (click)="addInput(complete.valueAsNumber, error.valueAsNumber)"
-			*ngIf="inputs.length === 0 || multipleInputs">Add Input</button>
+			*ngIf="inputs.length === 0 || isMultipleInput">Add Input</button>
 	</div>
 	<div class="display">
 		<div *ngFor="let input of inputs; let index = index;">

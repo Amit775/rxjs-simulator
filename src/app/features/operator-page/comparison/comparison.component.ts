@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Page } from 'src/app/shared/pages/page';
 
 @Component({
 	selector: 'app-operator-comparison',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
 	styleUrls: ['./comparison.component.less']
 })
 export class ComparisonComponent {
-
+	@Input() page: Page;
 }

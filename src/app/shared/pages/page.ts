@@ -25,4 +25,12 @@ export abstract class OperatorMultiplePage extends Page {
 	abstract operator: (...args: any[]) => UnaryFunction<Observable<any>, Observable<any>[]>
 }
 
+export interface Predictable<T = any> extends Page {
+	predicate: (value: T, index: number) => boolean;
+}
+
+export function isPredictable(page: Page): page is Predictable {
+	return 'predicate' in page;
+}
+
 type ObservableCreator = (...args: any[]) => Observable<any>
